@@ -1,0 +1,50 @@
+#include<cstdio>
+#include<iostream>
+#include<cstring>
+using namespace std;
+const int maxn=1e5+10;
+int n,m,sum; ///n是点数，m是边数
+struct node
+{
+    int s,e,p; ///s起点 e终点 p权值
+}edge[maxn];
+int pre[maxn];
+int cmp(node a,node b)
+{
+    return a.p<b.p;  ///按照权值排序
+}
+int Find(int x)  ///并查集查找祖先
+{
+    if(x!=pre[x]){
+        pre[x]=Find(pre[x]); ///路径压缩
+    }
+    return pre[x];
+}
+void Union(int x,int y,int n)  ///并查集合并函数，n是用来记录最短路中应该加入哪个点
+{
+    int fx=Find(x);
+    int fy= Find(y);
+    if(fx!=fy){
+        pre[fx]=fy;
+        sum+=edge[n].p;
+    }
+}
+int main()
+{
+    while(~scanf("%d",&n)&&n){
+        sum=0;
+        m=n*(n-1)/2;
+        for(int i=1;i<=m;i++){
+            scanf("%d%d%d",&edge[i].s,&edge[i].e,&edge[i].p);
+        }
+        for(int i=1;i<=m;i++){
+            pre[i]=i;
+        }
+        sort(edge+1,edge+m+1,cmp);
+        for(int i=1;i<=m;i++){
+            Union(edge[i].s,edge[i].e,i);
+        }
+        printf("%d\n",sum);
+    }
+    return 0;
+}
