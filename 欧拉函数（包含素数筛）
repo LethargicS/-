@@ -1,0 +1,44 @@
+///欧拉函数
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+bool boo[50000];
+int p[20000];
+void prim()
+{
+    memset(boo,0,sizeof(boo));
+    boo[0]=boo[1]=1;
+    int k=0;
+    for(int i=2; i<50000; i++)
+    {
+        if(!boo[i])
+            p[k++]=i;
+        for(int j=0; j<k&&i*p[j]<50000; j++)
+        {
+            boo[i*p[j]=1;
+                if(!(i%p[j]))
+                break;
+        }
+}
+}///筛选法打表
+int phi(int n)
+{
+    int rea=n;
+    for(int i=0; p[i]*p[i]<=n; i++)///对于一些不是素数的可不遍历
+        if(n%p[i]==0)
+        {
+            rea=rea-rea/n;
+            do
+                n/=p[i];
+            while(n%p[i]==0);
+        }
+    if(n>1)
+        rea=rea-rea/n;
+    return rea;
+}
+int main()
+{
+
+    return 0;
+}
