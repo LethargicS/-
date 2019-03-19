@@ -1,0 +1,26 @@
+///大数乘小数（依然利用数组存储大数每一位上的数字的方法）
+void mult( char c[], char t[], int m )  ///将大数储存在字符串中
+{
+    int i, l, k, flag, add = 0;
+    char    s[100];
+    l = strlen( c );
+    for ( i = 0; i < l; i++ )
+        s[l - i - 1] = c[i] - '0';  ///将字符转换成数并逆序储存
+    for ( i = 0; i < l; i++ ){
+        k = s[i] * m + add;
+        if ( k >= 10 ){
+            s[i] = k % 10;
+            add = k / 10;
+            flag = 1;
+        }
+        else { s[i] = k; flag = 0; add = 0; }
+    }
+    if ( flag ){
+        l = i + 1;
+        s[i] = add;
+    }
+    else l = i;
+    for ( i = 0; i < l; i++ )
+        t[l - 1 - i] = s[i] + '0';  ///再转换成字符
+    t[l] = '\0';
+}
