@@ -1,0 +1,94 @@
+///快速排序
+///快速排序是找出一个元素（理论上可以随便找一个）作为基准(pivot),然后对数组进行分区操作,使基准左边元素的值都不大于基准值,基准右边的元素值 都不小于基准值，如此作为基准的元素调整到排序后的正确位置。递归快速排序，将其他n-1个元素也调整到排序后的正确位置。
+int quicksort(vector<int> &v, int left,int right)
+{
+    if(left<right){
+        int key=v[left];
+        int low=left;
+        int high=right;
+        while(low<high){
+            while(low<high&&v[high]>key){
+                high--;
+            }
+            v[low]=v[high];
+            while(low<high&&v[low]<key){
+                low++;
+            }
+            v[high]=v[low];
+        }
+        v[low]=key;
+        quicksort(v,left,low-1);
+        quicksort(v,low+1,right);
+    }
+}
+
+///希尔排序
+
+
+#include <iostream>
+ 
+void Shellsort(int A[],int p,int r)
+{
+	int d=r-p+1;	//将 length(A) 赋给d
+ 
+	int i,j,tmp;
+	while(d>=1)
+	{
+		d/=2;
+		for(i=p+d;i<=r;i++)
+		{
+			tmp=A[i];
+			j=i-d;		//从i的前一个步长开始
+			while(j>=p && tmp<A[j])
+			{
+				A[j+d]=A[j];	//记录后移
+				j-=d;			//向前计数
+			}
+ 
+			A[j+d]=tmp;
+		}
+	}
+}
+ 
+int main()
+{
+	int A[6]={0,5,3,2,1,4};
+ 
+	Shellsort(A,1,5);
+ 
+	for(int i=1;i<=5;i++)
+		printf("%d ",A[i]);
+ 
+	return 0;
+}
+
+///选择排序
+
+#include<iostream>
+#include<algorithm>
+#include<cstdio>
+#include<cstring>
+using namespace std;
+int main()
+{
+    int n;
+    cin >> n;
+    int a[n];
+    for(int i=1;i<=n;i++)
+        cin >> a[i];
+    int minn;
+    for(int i=1;i<n;i++)
+    {
+        minn = i;
+        for(int j=i+1;j<=n;j++)
+        {
+            if(a[minn]>a[j])
+               minn = j;
+        }
+        if(i!=minn)
+            swap(a[i],a[minn]);
+    }
+    for(int i=1;i<=n;i++)
+        cout << a[i] << endl;
+    return 0;
+}
